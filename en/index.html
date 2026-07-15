@@ -206,7 +206,20 @@
 
     footer { background:var(--navy); }
 
-    @media (max-width:768px) { .hide-mobile { display:none !important; } }
+    @media (max-width:768px) {
+      .hide-mobile { display:none !important; }
+      #hamburger { display:flex !important; }
+    }
+    @media (max-width:900px) {
+      .hero-grid, .b2b-grid, .milestone-grid { grid-template-columns:1fr !important; }
+    }
+    @media (max-width:700px) {
+      .footer-grid { grid-template-columns:1fr !important; }
+    }
+    @media (max-width:480px) {
+      .float-btn { left:16px; right:16px; bottom:16px; justify-content:center; padding:13px 20px; font-size:0.85rem; }
+      .kiosk-card { padding:clamp(18px,5vw,28px) !important; }
+    }
   </style>
 </head>
 <body>
@@ -245,7 +258,7 @@
           <span style="opacity:0.5;">ES</span><span style="color:rgba(0,31,63,0.3);">/</span><span style="color:var(--terra);font-family:'Varela Round',sans-serif;">EN</span>
         </a>
         <a href="#inversores" class="btn-terra"><i class="fas fa-chart-line" style="font-size:0.8rem;"></i> Investor Portal</a>
-        <button id="hamburger" onclick="toggleMenu()" style="display:none;background:none;border:none;cursor:pointer;padding:4px;color:var(--navy);font-size:1.1rem;" class="hide-mobile">
+        <button id="hamburger" onclick="toggleMenu()" style="display:none;background:none;border:none;cursor:pointer;padding:4px;color:var(--navy);font-size:1.1rem;">
           <i class="fas fa-bars" id="menuIcon"></i>
         </button>
       </div>
@@ -291,20 +304,18 @@
           </a>
           <a href="#propietarios" class="btn-outline-cream" style="font-size:0.9rem;padding:14px 28px;">Host a Hub (B2B)</a>
         </div>
-        <div style="display:flex;gap:32px;padding-top:28px;border-top:1px solid rgba(255,255,255,0.1);">
-          <div>
-            <div style="font-family:'Varela Round',sans-serif;font-size:2rem;color:#fff;line-height:1;" class="counter" data-target="71.4" data-suffix="%" data-decimals="1">71.4%</div>
-            <div style="font-size:0.75rem;color:rgba(255,255,255,0.5);margin-top:4px;">Gross Margin</div>
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;padding-top:28px;border-top:1px solid rgba(255,255,255,0.1);">
+          <div style="border-right:1px solid rgba(255,255,255,0.12);padding-right:12px;min-width:0;">
+            <div style="font-family:'Varela Round',sans-serif;font-size:clamp(1.3rem,5vw,2rem);color:#fff;line-height:1;" class="counter" data-target="71.4" data-suffix="%" data-decimals="1">71.4%</div>
+            <div style="font-size:0.7rem;color:rgba(255,255,255,0.5);margin-top:4px;">Gross Margin</div>
           </div>
-          <div style="width:1px;background:rgba(255,255,255,0.12);"></div>
-          <div>
-            <div style="font-family:'Varela Round',sans-serif;font-size:2rem;color:#fff;line-height:1;" class="counter" data-target="50.2" data-suffix="%" data-decimals="1">50.2%</div>
-            <div style="font-size:0.75rem;color:rgba(255,255,255,0.5);margin-top:4px;">EBITDA</div>
+          <div style="border-right:1px solid rgba(255,255,255,0.12);padding-right:12px;min-width:0;">
+            <div style="font-family:'Varela Round',sans-serif;font-size:clamp(1.3rem,5vw,2rem);color:#fff;line-height:1;" class="counter" data-target="50.2" data-suffix="%" data-decimals="1">50.2%</div>
+            <div style="font-size:0.7rem;color:rgba(255,255,255,0.5);margin-top:4px;">EBITDA</div>
           </div>
-          <div style="width:1px;background:rgba(255,255,255,0.12);"></div>
-          <div>
-            <div style="font-family:'Varela Round',sans-serif;font-size:2rem;color:#fff;line-height:1;" class="counter" data-target="26" data-suffix="" data-decimals="0">26</div>
-            <div style="font-size:0.75rem;color:rgba(255,255,255,0.5);margin-top:4px;">ROI Months</div>
+          <div style="min-width:0;">
+            <div style="font-family:'Varela Round',sans-serif;font-size:clamp(1.3rem,5vw,2rem);color:#fff;line-height:1;" class="counter" data-target="26" data-suffix="" data-decimals="0">26</div>
+            <div style="font-size:0.7rem;color:rgba(255,255,255,0.5);margin-top:4px;">ROI Months</div>
           </div>
         </div>
       </div>
@@ -720,23 +731,6 @@
     `;
     pc.appendChild(p);
   }
-
-  /* === RESPONSIVE GRID === */
-  function applyResponsive() {
-    const w = window.innerWidth;
-    document.querySelectorAll('.hero-grid,.b2b-grid,.milestone-grid').forEach(el => {
-      el.style.gridTemplateColumns = w < 900 ? '1fr' : '1fr 1fr';
-    });
-    document.querySelectorAll('.footer-grid').forEach(el => {
-      el.style.gridTemplateColumns = w < 700 ? '1fr' : '2fr 1fr 1fr';
-    });
-    document.querySelectorAll('.hide-mobile').forEach(el => {
-      el.style.display = w < 768 ? 'none' : '';
-    });
-    document.getElementById('hamburger').style.display = w < 768 ? 'flex' : 'none';
-  }
-  applyResponsive();
-  window.addEventListener('resize', applyResponsive);
 
   /* === WAITLIST === */
   function handleWaitlist(e) {
